@@ -1,82 +1,39 @@
-# Lightweight React Template for KAVIA
+# To-Do Frontend (React)
 
-This project provides a minimal React template with a clean, modern UI and minimal dependencies.
+A minimal, modern React frontend for the To-Do app. It connects to a backend API (default http://localhost:3001) to provide full CRUD with loading/error states.
 
 ## Features
+- List, add, edit, delete, and toggle completion of tasks
+- Loading and error states
+- Theme toggle (light/dark)
+- Configurable API base URL via environment variable
 
-- **Lightweight**: No heavy UI frameworks - uses only vanilla CSS and React
-- **Modern UI**: Clean, responsive design with KAVIA brand styling
-- **Fast**: Minimal dependencies for quick loading times
-- **Simple**: Easy to understand and modify
+## Configuration
+Create a `.env` file in this directory (same level as `package.json`) and set:
 
-## Getting Started
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-### `npm test`
-
-Launches the test runner in interactive watch mode.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-## Customization
-
-### Colors
-
-The main brand colors are defined as CSS variables in `src/App.css`:
-
-```css
-:root {
-  --kavia-orange: #E87A41;
-  --kavia-dark: #1A1A1A;
-  --text-color: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.7);
-  --border-color: rgba(255, 255, 255, 0.1);
-}
+```
+REACT_APP_API_BASE_URL=http://localhost:3001
 ```
 
-### Components
+If not provided, the app defaults to `http://localhost:3001`.
 
-This template uses pure HTML/CSS components instead of a UI framework. You can find component styles in `src/App.css`. 
+Note: Ensure the backend enables CORS for the frontend origin (e.g., http://localhost:3000). The frontend issues requests with `mode: 'cors'` and JSON headers.
 
-Common components include:
-- Buttons (`.btn`, `.btn-large`)
-- Container (`.container`)
-- Navigation (`.navbar`)
-- Typography (`.title`, `.subtitle`, `.description`)
+## Scripts
 
-## Learn More
+- `npm start` — Runs the app on http://localhost:3000
+- `npm test` — Test runner
+- `npm run build` — Production build
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Backend Contract
+The app expects a REST API:
+- GET `/tasks` -> `[ { id, title, completed } ]`
+- POST `/tasks` body `{ title }` -> created task
+- PUT `/tasks/:id` body `{ title }` -> updated task
+- PATCH `/tasks/:id` body `{ completed }` -> updated task
+- DELETE `/tasks/:id` -> 204 or confirmation
 
-### Code Splitting
+Adjust `src/api.js` if your backend differs.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Styling
+Lightweight styles live in `src/App.css` and follow a modern blue-accent theme. You can adjust CSS variables for branding.
